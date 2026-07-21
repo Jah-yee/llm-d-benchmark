@@ -10,11 +10,14 @@ scenario:
   - name: "ocp-cicd"
 
     # Model
+    # TEMP (do not merge): 14B for the cold-start-by-model-size experiment,
+    # matching the blog's Table B. Was Qwen/Qwen3-8B; for 32B use
+    # Qwen/Qwen2.5-32B-Instruct-GPTQ-Int8 (the blog's GPTQ-Int8 variant).
     model:
-      name: Qwen/Qwen3-8B
-      shortName: qwen-qwen3-8b
-      path: models/Qwen/Qwen3-8B
-      huggingfaceId: Qwen/Qwen3-8B
+      name: Qwen/Qwen2.5-14B-Instruct
+      shortName: qwen-qwen2.5-14b-instruct
+      path: models/Qwen/Qwen2.5-14B-Instruct
+      huggingfaceId: Qwen/Qwen2.5-14B-Instruct
       # Keeping it similar to FMA launcher's vLLM (24_fma-deployment.yaml.j2)
       maxModelLen: 40960
       blockSize: 16
