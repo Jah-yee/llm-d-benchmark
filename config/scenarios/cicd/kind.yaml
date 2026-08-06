@@ -107,7 +107,7 @@ scenario:
       # Envoy-based proxy; on a single-node Kind cluster we keep this lean
       # so EPP, model-server pods, and the gateway can all schedule together.
       gateway:
-        className: agentgateway
+        className: epponly
         resources:
           limits:
             cpu: "1"
