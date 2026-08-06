@@ -1836,6 +1836,7 @@ class RenderPlans:
 
         stack_errors = StackErrors()
         result.stacks[stack_name] = stack_errors
+
         stack_config = self._expand_stack_common(
             {k: v for k, v in stack.items() if k != "name"}, defaults
         )

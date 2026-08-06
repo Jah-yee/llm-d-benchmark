@@ -220,8 +220,7 @@ def parse_cli_overrides(
     flat_by_selector: dict[str, dict[str, Any]] = {}
 
     for raw in values:
-        processed = protect_internal_dotting(raw)
-        for pair in split_override_pairs(processed):
+        for pair in split_override_pairs(raw):
             selector, key, value = parse_override_pair(pair)
             bucket = flat_by_selector.setdefault(selector, {})
             # `key` still carries the sentinel so dotted_to_nested can split
