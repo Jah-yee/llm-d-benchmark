@@ -76,12 +76,12 @@ scenario:
           - name: dshm
             mountPath: /dev/shm
 
-      annotations:
-        prefill:
-          pod:
+#     annotations:
+#       prefill:
+#         pod:
 #            k8s.v1.cni.cncf.io/networks: multi-nic-inference
-        decode:
-          pod:
+#       decode:
+#         pod:
 #            k8s.v1.cni.cncf.io/networks: multi-nic-inference
 
       prefill:

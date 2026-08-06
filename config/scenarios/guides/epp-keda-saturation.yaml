@@ -97,54 +97,6 @@ scenario:
         externallyManaged: true  # agentgateway already exists in cluster
 
       # =========================================================================
-      # EPP+KEDA SATURATION CONFIGURATION
-      #
-      # Direct KEDA autoscaling using EPP pool metrics. All thresholds and
-      # behavior parameters are spelled out below so users can tweak them
-      # per-experiment without editing defaults.yaml.
-      # =========================================================================
-      eppKedaSaturation:
-        enabled: true
-
-        namespace: ""              # defaults to deploy namespace (first slot of `-p`)
-
-        prometheus:
-          baseUrl: https://thanos-querier.openshift-monitoring.svc.cluster.local
-          port: 9091
-
-        epp:
-          poolName: ""             # defaults to model_id_label at render time
-          metricsPortName: http-metrics
-          metricsPort: 9090
-          prometheusServiceAccount: thanos-querier
-          prometheusServiceAccountNamespace: openshift-monitoring
-
-        scaledObject:
-          minReplicas: 1
-          maxReplicas: 10
-          pollingInterval: 15
-          kvCacheThreshold: "0.7"  # scale up when pool-avg KV cache > 70%
-          queueSizeThreshold: "2"  # scale up when pool-avg queue > 2 requests
-          activationThreshold: "0"
-          unsafeSsl: true
-          behavior:
-            scaleUp:
-              stabilizationWindowSeconds: 0
-              policies:
-                # Adjust periodSeconds to match actual pod startup time.
-                # GPU hardware (H100/A100): 180 seconds
-                # Simulator / kind cluster (fast startup): 30 seconds
-                - type: Pods
-                  value: 1
-                  periodSeconds: 180
-            scaleDown:
-              stabilizationWindowSeconds: 300
-              policies:
-                - type: Pods
-                  value: 1
-                  periodSeconds: 300
-
-      # =========================================================================
       # ROUTING / GAIE CONFIGURATION
       #
       # EPP+KEDA autoscaling is driven by EPP queue depth, so we enable the
@@ -260,6 +212,55 @@ scenario:
             interval: 30s
             labels:
               release: llmd
+
+
+    # =========================================================================
+    # EPP+KEDA SATURATION CONFIGURATION
+    #
+    # Direct KEDA autoscaling using EPP pool metrics. All thresholds and
+    # behavior parameters are spelled out below so users can tweak them
+    # per-experiment without editing defaults.yaml.
+    # =========================================================================
+    eppKedaSaturation:
+      enabled: true
+
+      namespace: ""              # defaults to deploy namespace (first slot of `-p`)
+
+      prometheus:
+        baseUrl: https://thanos-querier.openshift-monitoring.svc.cluster.local
+        port: 9091
+
+      epp:
+        poolName: ""             # defaults to model_id_label at render time
+        metricsPortName: http-metrics
+        metricsPort: 9090
+        prometheusServiceAccount: thanos-querier
+        prometheusServiceAccountNamespace: openshift-monitoring
+
+      scaledObject:
+        minReplicas: 1
+        maxReplicas: 10
+        pollingInterval: 15
+        kvCacheThreshold: "0.7"  # scale up when pool-avg KV cache > 70%
+        queueSizeThreshold: "2"  # scale up when pool-avg queue > 2 requests
+        activationThreshold: "0"
+        unsafeSsl: true
+        behavior:
+          scaleUp:
+            stabilizationWindowSeconds: 0
+            policies:
+              # Adjust periodSeconds to match actual pod startup time.
+              # GPU hardware (H100/A100): 180 seconds
+              # Simulator / kind cluster (fast startup): 30 seconds
+              - type: Pods
+                value: 1
+                periodSeconds: 180
+          scaleDown:
+            stabilizationWindowSeconds: 300
+            policies:
+              - type: Pods
+                value: 1
+                periodSeconds: 300
 
     harness:
       name: inference-perf

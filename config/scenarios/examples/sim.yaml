@@ -182,6 +182,13 @@ scenario:
       # =========================================================================
       gateway:
         className: epponly
+        resources:
+          requests:
+            cpu: "500m"
+            memory: 512Mi
+          limits:
+            cpu: "2"
+            memory: 2Gi
 
       # -------------------------------------------------------------------------
       # Routing Configuration
@@ -199,24 +206,6 @@ scenario:
         monitoring:
           prometheus:
             enabled: false
-      # -------------------------------------------------------------------------
-      # Prefill Configuration
-      # Corresponds to: LLMDBENCH_VLLM_MODELSERVICE_PREFILL_*
-      # -------------------------------------------------------------------------
-      # -------------------------------------------------------------------------
-      # Infrastructure / Gateway Configuration
-      # Corresponds to: LLMDBENCH_VLLM_INFRA_GATEWAY_*
-      # -------------------------------------------------------------------------
-      infrastructure:
-        gateway:
-          resources:
-            requests:
-              cpu: "500m"
-              memory: 512Mi
-            limits:
-              cpu: "2"
-              memory: 2Gi
-
       prefill:
         enabled: true
         replicas: 1
@@ -265,7 +254,6 @@ scenario:
         vllm:
           modelCommand: imageDefault
           additionalFlags: []
-
     # -------------------------------------------------------------------------
     # Timeout Configuration
     # Corresponds to: LLMDBENCH_CONTROL_WAIT_TIMEOUT=300

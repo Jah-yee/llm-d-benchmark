@@ -106,15 +106,15 @@ scenario:
       # Minimal gateway resources for Kind -- agentgateway is a lightweight
       # Envoy-based proxy; on a single-node Kind cluster we keep this lean
       # so EPP, model-server pods, and the gateway can all schedule together.
-      #gateway:
-      #  className: agentgateway
-      #  resources:
-      #    limits:
-      #      cpu: "1"
-      #      memory: 1Gi
-      #    requests:
-      #      cpu: "250m"
-      #      memory: 256Mi
+      gateway:
+        className: agentgateway
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: "250m"
+            memory: 256Mi
 
       # Minimal EPP + Envoy resources for Kind. The llm-d-router chart's
       # upstream defaults (EPP: 4 CPU / 8 GiB req, 16 GiB limit; Envoy
