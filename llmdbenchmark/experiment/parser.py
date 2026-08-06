@@ -101,6 +101,7 @@ def dotted_to_nested(flat: dict[str, Any]) -> dict[str, Any]:
                 f"Key conflict: '{restore_dots(dotted_key)}' would overwrite "
                 f"a nested dict with scalar value {value!r}"
             )
+        leaf = leaf.replace("_PROTECTDOT_", ".")
         target[leaf] = value
     return nested
 
