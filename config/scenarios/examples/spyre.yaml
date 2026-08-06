@@ -97,8 +97,8 @@ scenario:
       images:
         vllmOpenai:
           repository: icr.io/ibmaiu_internal/amd64/vllm-spyre
-          tag: v1.10.-aiu1.2.0
-          pullPolicy: IfNotPresent0
+          tag: v1.10.0-aiu1.2.0
+          pullPolicy: IfNotPresent
 
         vllm:
           repository: icr.io/ibmaiu_internal/amd64/vllm-spyre
