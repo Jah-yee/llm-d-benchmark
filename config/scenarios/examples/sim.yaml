@@ -199,7 +199,10 @@ scenario:
         monitoring:
           prometheus:
             enabled: false
-
+      # -------------------------------------------------------------------------
+      # Prefill Configuration
+      # Corresponds to: LLMDBENCH_VLLM_MODELSERVICE_PREFILL_*
+      # -------------------------------------------------------------------------
       # -------------------------------------------------------------------------
       # Infrastructure / Gateway Configuration
       # Corresponds to: LLMDBENCH_VLLM_INFRA_GATEWAY_*
@@ -214,58 +217,54 @@ scenario:
               cpu: "2"
               memory: 2Gi
 
-        # -------------------------------------------------------------------------
-        # Prefill Configuration
-        # Corresponds to: LLMDBENCH_VLLM_MODELSERVICE_PREFILL_*
-        # -------------------------------------------------------------------------
-        prefill:
-          enabled: true
-          replicas: 1
+      prefill:
+        enabled: true
+        replicas: 1
 
-          parallelism:
-            tensor: 1
-            data: 1
-            dataLocal: 1
-            workers: 1
+        parallelism:
+          tensor: 1
+          data: 1
+          dataLocal: 1
+          workers: 1
 
-          resources:
-            limits:
-              memory: 100Mi
-              cpu: "0"
-            requests:
-              memory: 100Mi
-              cpu: "0"
+        resources:
+          limits:
+            memory: 100Mi
+            cpu: "0"
+          requests:
+            memory: 100Mi
+            cpu: "0"
 
-          vllm:
-            modelCommand: imageDefault
-            additionalFlags: []
+        vllm:
+          modelCommand: imageDefault
+          additionalFlags: []
 
-        # -------------------------------------------------------------------------
-        # Decode Configuration
-        # Corresponds to: LLMDBENCH_VLLM_MODELSERVICE_DECODE_*
-        # No customCommand -- the vLLM serve command is auto-generated
-        # from model.*, vllmCommon.flags.*, and decode.vllm.additionalFlags.
-        # -------------------------------------------------------------------------
-        decode:
-          replicas: 1
+      # -------------------------------------------------------------------------
+      # Decode Configuration
+      # Corresponds to: LLMDBENCH_VLLM_MODELSERVICE_DECODE_*
+      # No customCommand -- the vLLM serve command is auto-generated
+      # from model.*, vllmCommon.flags.*, and decode.vllm.additionalFlags.
+      # -------------------------------------------------------------------------
+      decode:
+        replicas: 1
 
-          parallelism:
-            tensor: 1
-            data: 1
-            dataLocal: 1
-            workers: 1
+        parallelism:
+          tensor: 1
+          data: 1
+          dataLocal: 1
+          workers: 1
 
-          resources:
-            limits:
-              memory: 100Mi
-              cpu: "0"
-            requests:
-              memory: 100Mi
-              cpu: "0"
+        resources:
+          limits:
+            memory: 100Mi
+            cpu: "0"
+          requests:
+            memory: 100Mi
+            cpu: "0"
 
-          vllm:
-            modelCommand: imageDefault
-            additionalFlags: []
+        vllm:
+          modelCommand: imageDefault
+          additionalFlags: []
 
     # -------------------------------------------------------------------------
     # Timeout Configuration
